@@ -1,61 +1,409 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panadería Trigal - Inicio</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <title>Panadería Trigal</title>
+  <style>
+    /* VARIABLES Y ESTILOS GLOBALES */
+    :root {
+      --primary: #8c5332;
+      --primary-dark: #5c351e;
+      --accent: #d97736;
+      --bg-light: #faf6f0;
+      --card-bg: #ffffff;
+      --text-dark: #2b231f;
+      --text-muted: #6e655f;
+      --border-color: #e8ded5;
+      --shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+
+    /* NAVEGACIÓN Y HEADER */
+    .site-header {
+      background-color: var(--card-bg);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    }
+
+    .nav-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      color: var(--primary-dark);
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+
+    .site-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .site-nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .site-nav a:hover,
+    .site-nav a.active {
+      color: var(--accent);
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    main {
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    section {
+      background-color: var(--card-bg);
+      padding: 2.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+      margin-bottom: 2.5rem;
+    }
+
+    /* SECCIÓN HERO */
+    .hero {
+      background: linear-gradient(135deg, #ffffff 0%, #f7efe6 100%);
+      border-left: 6px solid var(--accent);
+    }
+
+    .kicker {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      color: var(--primary-dark);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .lead {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .muted {
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    /* TARJETAS DE SECCIONES (GRID) */
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .section-card {
+      background-color: var(--bg-light);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .section-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      border-color: var(--accent);
+    }
+
+    .num {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+
+    .section-card h3 {
+      font-size: 1.2rem;
+      color: var(--primary-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .desc {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* LISTA DE MENÚ */
+    .menu-list {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 0.8rem 0;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .menu-item:last-child {
+      border-bottom: none;
+    }
+
+    .price {
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    /* FORMULARIO DE CONTACTO */
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--text-dark);
+    }
+
+    input, textarea {
+      width: 100%;
+      max-width: 500px;
+      padding: 0.75rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background-color: var(--bg-light);
+      font-size: 1rem;
+      transition: border-color 0.2s ease;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background-color: #fff;
+    }
+
+    button {
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.8rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    button:hover {
+      background-color: var(--primary-dark);
+    }
+
+    /* FOOTER */
+    .site-footer {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background-color: var(--card-bg);
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* RESPONSIVO EN MÓVILES */
+    @media (max-width: 600px) {
+      .nav-wrap {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .site-nav {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      h1 { font-size: 1.8rem; }
+      section { padding: 1.5rem; }
+    }
+  </style>
 </head>
 <body>
 
 <header class="site-header">
   <div class="nav-wrap">
-    <a href="index.html" class="brand">Panadería Trigal</a>
+    <a href="#inicio" class="brand">Panadería Trigal</a>
     <nav class="site-nav">
-      <a href="index.html" class="active">Inicio</a>
-      <a href="seccion1/index.html">seccion 1</a>
-      <a href="seccion2/index.html">seccion 2</a>
-      <a href="seccion3/index.html">seccion 3</a>
-      <a href="seccion4/index.html">seccion 4</a>
+      <a href="#inicio" class="active">Inicio</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#menu">Menú</a>
+      <a href="#galeria">Galería</a>
+      <a href="#contacto">Contacto</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <section class="hero">
+
+  <!-- Inicio -->
+  <section id="inicio" class="hero">
     <p class="kicker">Pan de masa madre, horneado cada mañana</p>
     <h1>Trigal, panadería de barrio</h1>
     <p class="lead">Panadería artesanal con harinas locales y fermentación natural. Explora nuestro sitio para conocer la historia, ver nuestro menú del día, la galería de productos y cómo contactarnos.</p>
   </section>
 
+  <!-- Navegación por Tarjetas -->
   <section>
     <h2>Explora el sitio</h2>
     <p class="muted">Cada sección fue desarrollada de forma independiente por un integrante del equipo.</p>
 
     <div class="section-grid">
-      <a class="section-card" href="seccion1/index.html">
+      <a class="section-card" href="#nosotros">
         <span class="num">Sección 1</span>
         <h3>Nosotros</h3>
         <span class="desc">La historia detrás del obrador y nuestro equipo.</span>
       </a>
-      <a class="section-card" href="seccion2/index.html">
+      <a class="section-card" href="#menu">
         <span class="num">Sección 2</span>
         <h3>Menú</h3>
         <span class="desc">Panes, repostería y precios del día.</span>
       </a>
-      <a class="section-card" href="seccion3/index.html">
+      <a class="section-card" href="#galeria">
         <span class="num">Sección 3</span>
         <h3>Galería</h3>
         <span class="desc">Imágenes del obrador y los productos recién horneados.</span>
       </a>
-      <a class="section-card" href="seccion4/index.html">
+      <a class="section-card" href="#contacto">
         <span class="num">Sección 4</span>
         <h3>Contacto</h3>
         <span class="desc">Ubicación, horarios de atención y formulario.</span>
       </a>
     </div>
   </section>
+
+  <!-- Sección 1: Nosotros -->
+  <section id="nosotros">
+    <h2>Sección 1 — Nosotros</h2>
+    <p class="lead">La historia detrás del obrador y la dedicación diaria.</p>
+    <p>La panadería nació con la idea de ofrecer productos frescos, de buen sabor y preparados con dedicación para las personas de la comunidad. Desde el inicio, el objetivo fue crear un lugar donde los clientes pudieran encontrar diferentes tipos de pan y otros productos de repostería a un precio accesible.</p>
+    <p>Con el paso del tiempo, la panadería fue creciendo y buscando nuevas formas de mejorar sus productos y la atención a los clientes. Se fueron agregando diferentes variedades de pan, como pan dulce, conchas, donas, cuernitos y otros productos que son preparados diariamente.</p>
+  </section>
+
+  <!-- Sección 2: Menú -->
+  <section id="menu">
+    <h2>Sección 2 — Menú</h2>
+    <p class="lead">Productos horneados diariamente con ingredientes de primera calidad.</p>
+    <ul class="menu-list">
+      <li class="menu-item">
+        <div>
+          <strong>Conchas Tradicionales</strong>
+          <p class="desc">Vainilla y chocolate artesanal.</p>
+        </div>
+        <span class="price">$15 MXN</span>
+      </li>
+      <li class="menu-item">
+        <div>
+          <strong>Cuernitos de Mantequilla</strong>
+          <p class="desc">Tostados y crujientes por fuera.</p>
+        </div>
+        <span class="price">$18 MXN</span>
+      </li>
+      <li class="menu-item">
+        <div>
+          <strong>Donas Glaseadas</strong>
+          <p class="desc">De chocolate, fresa y azúcar.</p>
+        </div>
+        <span class="price">$12 MXN</span>
+      </li>
+      <li class="menu-item">
+        <div>
+          <strong>Hogaza de Masa Madre</strong>
+          <p class="desc">Pan rústico tradicional de 500g.</p>
+        </div>
+        <span class="price">$45 MXN</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Sección 3: Galería -->
+  <section id="galeria">
+    <h2>Sección 3 — Galería</h2>
+    <p class="lead">Imágenes del obrador y el proceso artesanal.</p>
+    <p class="muted">Proceso de elaboración artesanal y productos recién salidos del horno cada mañana.</p>
+    <div style="background: var(--bg-light); border: 2px dashed var(--border-color); padding: 3rem; text-align: center; border-radius: var(--radius); color: var(--text-muted);">
+      <em>[Espacio reservado para imágenes del obrador, masas en fermentación y pan caliente]</em>
+    </div>
+  </section>
+
+  <!-- Sección 4: Contacto -->
+  <section id="contacto">
+    <h2>Sección 4 — Contacto</h2>
+    <p class="lead">Ubicación, horarios y formulario de atención.</p>
+    <p><strong>Dirección:</strong> Av. Principal #123, Colonia Centro.</p>
+    <p style="margin-bottom: 1.5rem;"><strong>Horarios de atención:</strong> Lunes a Sábado de 6:00 AM a 8:00 PM.</p>
+
+    <form onsubmit="event.preventDefault();">
+      <div class="form-group">
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" placeholder="Ej. Juan Pérez">
+      </div>
+      <div class="form-group">
+        <label for="mensaje">Mensaje o pedido:</label>
+        <textarea id="mensaje" rows="4" placeholder="¿En qué te podemos ayudar?"></textarea>
+      </div>
+      <button type="submit">Enviar mensaje</button>
+    </form>
+  </section>
+
 </main>
 
 <footer class="site-footer">
